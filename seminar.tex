@@ -43,37 +43,40 @@ the blockchain view is a chain of blocks, each block $B_j=(tx_{lead},st)$, while
 
 \subsection{ LEAD statement}
 for $x=(cm_{c_2},sn_{c_1},\eta,sl,\rho,h,ptr,\mu_{\rho},\mu_{y},root)$, and
+\newline
 $w=(path,root_{sk^{COIN}},path_{sk^{COIN}},\tau_c,\rho_c,r_{c_1},v,r_{c_2})$
 for tuple $(x,w) \in L_{lead}$ iff:
 
- * $pk^{COIN} = PRF_{root_{sk}^{COIN}}^{pk}(\tau_c)$.
- * $\rho_{c_2}=PRF_{root_{sk_{c_1}}^{COIN}}^{evl}(\rho_{c_1})$.
+ \item $pk^{COIN} = PRF_{root_{sk}^{COIN}}^{pk}(\tau_c)$.
+ \item $\rho_{c_2}=PRF_{root_{sk_{c_1}}^{COIN}}^{evl}(\rho_{c_1})$.
  note here the nonce of the new coin is deterministically driven from the nonce of the old coin, this works as resistance mechanism to allow the same coin to be eligible for leadership more than once in the same epoch.
- * $\forall i \in \{1,2\} : DeComm(cm_{c_i},pk^{COIN}||v||\rho_{c_i},r_{c_i})=T$.
- * path is a valid Merkle tree path to $cm_{c_1}$ in the tree with the root root.
- * $path_{sk^{COIN}}$ is a valid path to a leaf at position $sl-\tau_c$ in a tree with a root $root_{sk}^{COIN}$.
- * $sn_{c_1}= PRF_{root_{sk}^{COIN}}^{sn}(\rho_{c_1})$
- * $y = \mu_{y}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
- * $\rho = \mu_{\rho}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
- * $y< T(v)$
+ \item $\forall i \in \{1,2\} : DeComm(cm_{c_i},pk^{COIN}||v||\rho_{c_i},r_{c_i})=T$.
+ \item path is a valid Merkle tree path to $cm_{c_1}$ in the tree with the root root.
+ \item $path_{sk^{COIN}}$ is a valid path to a leaf at position $sl-\tau_c$ in a tree with a root $root_{sk}^{COIN}$.
+ \item $sn_{c_1}= PRF_{root_{sk}^{COIN}}^{sn}(\rho_{c_1})$
+ \item $y = \mu_{y}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
+ \item $\rho = \mu_{\rho}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
+ \item $y< T(v)$
 note that this process involves burning old coin $c_1$, minting new  $c_2$ of the same value + reward.
 
 \subsubsection{ validation rules}
 
 validation of proposed lead proof as follows:
+\begin{itemize}
+\item slot index is less than current slot index, epoch index is less than or equal current epoch index.
+\item proposal extend from valid fork chain
+\item proposal extend highest ranking block (see \ref{finalization})
+\item transactions doesn't exceed max limit
+\item signature is valid based off producer public key
+\item verify block hash
+\item verify previous block hash
+\item public inputs $\mu_y$, $\mu_{rho}$ are derived from on-chain VRF output $\eta$, and current slot, and block producer signature, and public key.
+\item public inputs of target 2-term approximations $\sigma_1$, $\sigma_2$ are valid given total network stake and controller parameters
+\item the competing coin nullifier isn't published before to protect against double spening, before burning the coin.
+\item burnt coin's commitment rooted by commitments merkle tree root.
+\item verify block transactions
 
-* slot index is less than current slot index
-* proposal extend from valid fork chain
-* transactions doesn't exceed max limit
-* signature is valid based off producer public key
-* verify block hash
-* verify block header hash
-* public inputs $\mu_y$, $\mu_{rho}$ are hash of current consensus $\eta$, and current slot
-* public inputs of target 2-term approximations $\sigma_1$, $\sigma_2$ are valid given total network stake and controller parameters
-* the competing coin nullifier isn't published before to protect against double spening, before burning the coin.
-* verify block transactions
-
-
+\end{itemize}
 
 \subsection{ Epoch}
 
@@ -104,8 +107,6 @@ the probability that a party holding all the stake will be selected to be
 a leader. Stakeholder is selected as leader for slot j with probability
 $\phi_f(\alpha_i)$, $\alpha_i$ is $U_i$ relative stake.
 
-see the appendix for absolute stake aggregation dependent leader selection
-family of functions.
 
 \subsection{ automating f tuning}
 
@@ -369,7 +370,7 @@ offline stakeholder can be malicious if won leadership with highest rank without
 \subsubsection {mitigating long range attack}
 \item extending only long chains filters out short chains
 \item forking parallel chain requires $\gt 50\%$ of staked DRK and has success rate $$ (f*\sigma)^{L} $$
-  \emph{L} is fork length, $\sigma$ is relative stake, \emph{f} is probability of winning lottery owning all the stake, from test-net, and simulation f ~ 0.6, $\sigma \lt 0.5$, to take a conservative intuition, f=1, $\sigma=0.5$. note that if fork length is 1 then validators choose between highest rank, so lowest possible fork length to rewrite transactions is 2, then at 50\%  of stake at most conservative case at $f=1$ probability of such attack is $0.5^2=0.25$ assuming malicious attacker always gets highest rank (which is random process), meanwhile a realistic intuition to probability of attack at $f=0.6$ with 51\% of stake at lowest possible fork length is $(0.6*0.51)^2=0.0936$ assuming malicious attacker always get highest rank, assume number of forks is F, then probability of getting sequence of high ranks is $F^L$, assume the lowest possible number of forks $F=2$ then the successful attack at $51\%$ stake, $f=0.6$, $F=2$, and $L=2$ have probability of $\frac{0.0936}{F^L} = 0.0234.
+  \emph{L} is fork length, $\sigma$ is relative stake, \emph{f} is probability of winning lottery owning all the stake, from test-net, and simulation $f$ tend to be around 0.6, to take a conservative intuition, f=1, $\sigma=0.5$. note that if fork length is 1 then validators choose between highest rank, so lowest possible fork length to rewrite transactions is 2, then at 50\%  of stake at most conservative case at $f=1$ probability of such attack is $0.5^2=0.25$ assuming malicious attacker always gets highest rank (which is random process), meanwhile a realistic intuition to probability of attack at $f=0.6$ with 51\% of stake at lowest possible fork length is $(0.6*0.51)^2=0.0936$ assuming malicious attacker always get highest rank, assume number of forks is F, then probability of getting sequence of high ranks is $F^L$, assume the lowest possible number of forks $F=2$ then the successful attack at $51\%$ stake, $f=0.6$, $F=2$, and $L=2$ have probability of $\frac{0.0936}{F^L} = 0.0234.
 
   \label{longrangefig}
   \begin{figure}

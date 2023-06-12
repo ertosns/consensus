@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.2)  11 JUN 2023 20:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.6.2)  12 JUN 2023 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -538,33 +538,164 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Missing character: There is no c in font msbm7!
 
-Overfull \hbox (99.65858pt too wide) in paragraph at lines 45--48
-\OT1/cmr/m/n/10 for $\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 cm[
-]; sn[]; ^^Q; sl; ^^Z; h; ptr; ^^V[]; ^^V[]; root\OT1/cmr/m/n/10 )$, and $\OML/
-cmm/m/it/10 w \OT1/cmr/m/n/10 = (\OML/cmm/m/it/10 path; root[]; path[]; ^^\[]; 
-^^Z[]; r[]; v; r[]\OT1/cmr/m/n/10 )$
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.50  \item $
+             pk^{COIN} = PRF_{root_{sk}^{COIN}}^{pk}(\tau_c)$.
+? 
+
+Underfull \hbox (badness 10000) detected at line 50
+[][]
  []
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<target.png, id=31, 462.528pt x 346.896pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.51  \item $
+             \rho_{c_2}=PRF_{root_{sk_{c_1}}^{COIN}}^{evl}(\rho_{c_1})$.
+? 
+
+Underfull \hbox (badness 10000) detected at line 51
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.53  \item $
+             \forall i \in \{1,2\} : DeComm(cm_{c_i},pk^{COIN}||v||\rho_{c_i...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 53
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.54  \item p
+             ath is a valid Merkle tree path to $cm_{c_1}$ in the tree with ...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 54
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55  \item $
+             path_{sk^{COIN}}$ is a valid path to a leaf at position $sl-\ta...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 55
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.56  \item $
+             sn_{c_1}= PRF_{root_{sk}^{COIN}}^{sn}(\rho_{c_1})$
+? 
+
+Underfull \hbox (badness 10000) detected at line 56
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.57  \item $
+             y = \mu_{y}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
+? 
+
+Underfull \hbox (badness 10000) detected at line 57
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58  \item $
+             \rho = \mu_{\rho}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
+? 
+
+Underfull \hbox (badness 10000) detected at line 58
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.59  \item $
+             y< T(v)$
+? 
+
+Underfull \hbox (badness 10000) detected at line 59
+[][]
+ []
+
+[2] [3]
+<target.png, id=30, 462.528pt x 346.896pt>
 File: target.png Graphic file (type png)
 <use target.png>
-Package pdftex.def Info: target.png  used on input line 149.
+Package pdftex.def Info: target.png  used on input line 150.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (117.52686pt too wide) in paragraph at lines 149--150
+Overfull \hbox (117.52686pt too wide) in paragraph at lines 150--151
 [][] 
  []
 
-[4 <./target.png>] [5] [6] [7]
-Overfull \hbox (0.38953pt too wide) in paragraph at lines 292--294
+[4] [5 <./target.png>] [6] [7] [8]
+Overfull \hbox (0.38953pt too wide) in paragraph at lines 293--295
 \OT1/cmr/m/n/10 although ran-dom-ness from the lead stake-holder provider is de
 -cen-tral-ized, doesn't
  []
 
-[8]
+[9]
 
 ! Package keyval Error: left undefined.
 
@@ -572,20 +703,20 @@ See the keyval package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.310   \includegraphics[scale=0.8,left]{prob.png}
+l.311   \includegraphics[scale=0.8,left]{prob.png}
                                                   
 ? 
-<prob.png, id=53, 875.9124pt x 635.976pt>
+<prob.png, id=57, 700.2963pt x 406.8801pt>
 File: prob.png Graphic file (type png)
 <use prob.png>
-Package pdftex.def Info: prob.png  used on input line 310.
-(pdftex.def)             Requested size: 700.73088pt x 508.78148pt.
+Package pdftex.def Info: prob.png  used on input line 311.
+(pdftex.def)             Requested size: 560.2378pt x 325.50452pt.
 
-Overfull \hbox (355.73088pt too wide) in paragraph at lines 310--311
+Overfull \hbox (215.2378pt too wide) in paragraph at lines 311--312
 [][] 
  []
 
-[9] [10 <./prob.png>] [11]
+[10 <./prob.png>] [11]
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -593,50 +724,45 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.370 \item e
+l.371 \item e
              xtending only long chains filters out short chains
-? 
-
-Underfull \hbox (badness 10000) detected at line 370
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.371 \item f
-             orking parallel chain requires $\gt 50\%$ of staked DRK and has...
-
 ? 
 
 Underfull \hbox (badness 10000) detected at line 371
 [][]
  []
 
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.372 \item f
+             orking parallel chain requires $\gt 50\%$ of staked DRK and has...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 372
+[][]
+ []
+
 ! Undefined control sequence.
 <recently read> \gt 
                     
-l.371 \item forking parallel chain requires $\gt
+l.372 \item forking parallel chain requires $\gt
                                                  50\%$ of staked DRK and has...
-
-? 
-! Undefined control sequence.
-l.372 ...-net, and simulation f ~ 0.6, $\sigma \lt
-                                                   0.5$, to take a conservat...
 
 ? 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.373 
+l.374 
       
 ? 
 
-Overfull \hbox (0.61166pt too wide) in paragraph at lines 403--404
+Overfull \hbox (0.61166pt too wide) in paragraph at lines 404--405
 [][] 
  []
 
@@ -647,51 +773,56 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.407 \item i
+l.408 \item i
              n span of 4 slots if chain $r^i_1$,$r^{i+1}_2$,$r^{i+2}_3$ came...
 
 ? 
 
-Underfull \hbox (badness 10000) detected at line 407
+Underfull \hbox (badness 10000) detected at line 408
 [][]
  []
 
 [12] [13] [14]
 ! Undefined control sequence.
-l.451 \subsubsubsection
+l.452 \subsubsubsection
                        { base fee based off PID control}
 ? 
-[15] [16] (./seminar.aux) ) 
+[15] [16] (./seminar.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14172 strings out of 480171
- 286526 string characters out of 5894490
- 546700 words of memory out of 5000000
- 31851 multiletter control sequences out of 15000+600000
- 478785 words of font info for 64 fonts, out of 8000000 for 9000
+ 14175 strings out of 480171
+ 286562 string characters out of 5894490
+ 548700 words of memory out of 5000000
+ 31853 multiletter control sequences out of 15000+600000
+ 479120 words of font info for 65 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  100i,8n,104p,1033b,762s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cme
-x7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on seminar.pdf (16 pages, 376916 bytes).
+ </home/ertosns/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.6
+00pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on seminar.pdf (16 pages, 353929 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
+ 165 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
