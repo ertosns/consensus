@@ -34,8 +34,6 @@ the commitment of the newly created coin is:
 $(cm_{c_2},r_{c_2})=COMM(pk^{COIN}||\tau||v_c||\rho_{c_2})$,
 $\tau$ is slot timestamp, or index. $sn_c$ is the coin's serial number revealed to spend the coin.
 $$sn_c=PRF_{root_{sk}^{COIN}}^{sn}(\rho_c)$$
-$$\rho=\eta^{sk_{sl}^{COIN}}$$
-$\eta$ is on-chain random oracle , $\rho$ id derived randomness from $\eta$.  $\pi$ is the NIZK proof of the LEAD statement.
 
 
 \subsection{ st transactions}
@@ -55,9 +53,13 @@ for tuple $(x,w) \in L_{lead}$ iff:
  \item $path_{sk^{COIN}}$ is a valid path to a leaf at position $sl-\tau_c$ in a tree with a root $root_{sk}^{COIN}$.
  \item $sn_{c_1}= PRF_{root_{sk}^{COIN}}^{sn}(\rho_{c_1})$
  \item $y = \mu_{y}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
- \item $\rho = \mu_{\rho}^{root_{sk_{c_1}}^{COIN}||\rho_c}$
+ \item $\rho = \mu_{\rho}^{root_{sk_{c_1}}^{COIN}||\rho_c}$,
+
  \item $y< T(v)$
-note that this process involves burning old coin $c_1$, minting new  $c_2$ of the same value + reward.
+
+   $\rho$ id randomness from $\eta$.  $\pi$ is the NIZK proof of the LEAD statement.
+   note! that this process involves burning old coin $c_1$, minting new  $c_2$ of the same value + reward.
+
 
 \subsubsection{ validation rules}
 
@@ -367,10 +369,10 @@ instant finality through 100\% secondary controller accuracy can be achieved thr
 offline stakeholder can be malicious if won leadership with highest rank without synchronization, or due to network level corruption by malicious attacker that lead to same case of out of sync chains, if stakeholder came online of sudden and propose different chain with highest ranking leadership proof than canonical one, then transaction can be rewritten by validators discarding established chain, and extending proposed chain.
 
 
-\subsubsection {mitigating long range attack}
+\subsubsection {mitigating long range attack: posterior corruption}
 \item extending only long chains filters out short chains
-\item forking parallel chain requires $\gt 50\%$ of staked DRK and has success rate $$ (f*\sigma)^{L} $$
-  \emph{L} is fork length, $\sigma$ is relative stake, \emph{f} is probability of winning lottery owning all the stake, from test-net, and simulation $f$ tend to be around 0.6, to take a conservative intuition, f=1, $\sigma=0.5$. note that if fork length is 1 then validators choose between highest rank, so lowest possible fork length to rewrite transactions is 2, then at 50\%  of stake at most conservative case at $f=1$ probability of such attack is $0.5^2=0.25$ assuming malicious attacker always gets highest rank (which is random process), meanwhile a realistic intuition to probability of attack at $f=0.6$ with 51\% of stake at lowest possible fork length is $(0.6*0.51)^2=0.0936$ assuming malicious attacker always get highest rank, assume number of forks is F, then probability of getting sequence of high ranks is $F^L$, assume the lowest possible number of forks $F=2$ then the successful attack at $51\%$ stake, $f=0.6$, $F=2$, and $L=2$ have probability of $\frac{0.0936}{F^L} = 0.0234.
+\item forking parallel chain requires $\gt 50\%$ of staked DRK and has success rate $$ (1-(1-f)^{\sigma})^{L} $$
+  \emph{L} is fork length, $\sigma$ is relative stake, \emph{f} is probability of winning lottery owning all the stake, from test-net, and simulation $f$ tend to be around 0.6, note that if fork length is 1 then validators choose between highest rank, so lowest possible fork length to rewrite transactions is 2, then at 50\%  of stake to take pessimistic point of view at $f=0.6$ probability of such attack is $((1-(1-0.6)^{0.5})^2w=0.135$ assuming malicious attacker always gets highest rank, which is random process (assuming independent Event), happen at probability $F^L $ ,F being number of fork, lowest possible is $F=2$ meanwhile probability of attack at $f=0.6$ with BFT performance 33\% of stake is assumed malicious at lowest possible fork length is $(1-(1-0.6)^{0.33})^2=0.068$ assuming malicious attacker always get highest rank, and probability of getting sequence of high ranks is $F^L$, assume the lowest possible number of forks $F=2$ (which is very pessimistic, F is proportional to number of stakeholders) then the successful attack at $33\%$ stake, $f=0.6$, $F=2$, and $L=2$ have probability of $\frac{0.068}{F^L} = 0.017$, since the fork happen with probability = 1 - $\emph{ accuracy of single lead}$ = $1-acc$, assuming it happens at random, then probability of Long range attack $P_{L=2}(\emph{LRA})$ = $\frac{(1-(1-f)^{\sigma})(1-acc)}{F}^L = 0.00764$.
 
   \label{longrangefig}
   \begin{figure}
@@ -405,7 +407,15 @@ offline stakeholder can be malicious if won leadership with highest rank without
     \caption{long range attack case study, $r^{i}_{j}=k$ means block at slot \emph{i} of index \emph{j} has rank \emph{k}}
     \end{figure}
 
-\item in span of 4 slots if chain $r^i_1$,$r^{i+1}_2$,$r^{i+2}_3$ came online at slot $i+3$ (see figure \ref{longrangefig}), the attack is possible starting from slot $i+3$, assuming malicious attacker owns $51\%$ of stake, under same previous parameters, probability of attack is $\frac{(\sigma*f)^L}{F^L} = \frac{(0.51*0.6)^2}{3^2} = 0.01$, probability of attack under same parameters owning 10\% of stake is 0.00039\% in other words the possibility of rewriting transactions loaded in blocks $r^{i+1}_1$, $r^{i+2}_2$ by malicious attacker that only sync at slot $i+3$ owning block proofs $r^{i+1}_2,r^{i+2}_3$ owning 10\%, 51\% of stake at same parameters above is successful once in 2500, 100 attempts respectively.
+\item in span of 4 slots if chain $r^i_1$,$r^{i+1}_2$,$r^{i+2}_3$ came online at slot $i+3$ (see figure \ref{longrangefig}), the attack is possible starting from slot $i+3$, assuming malicious attacker owns $33\%$ (BFT performance) of stake, under same previous parameters, probability of attack is $0.00764$, in other words the possibility of rewriting transactions loaded in blocks $r^{i+1}_1$, $r^{i+2}_2$ by malicious attacker that only sync at slot $i+3$ owning block proofs $r^{i+1}_2,r^{i+2}_3$ owning  33\% of stake at same parameters above is successful once in 130 attempts respectively.
+
+  \subsubsection { costly block creation }
+
+\item unlike different PoS blockchain, the lead proof creation here is costly, it requires stake, and a some luck proportional to owned stake, $P_{L=2}(LRA) \sim 0.00764$, assume diminishing probability of attack at costly block creation is $\lt 1e-6$, $P_{L=6}(LRA) \sim 4.4e-7$, with difference being just \emph{4} slots
+
+\item victims of LRA malicious attacker are new nodes, if they only connect to the malicious attacker, they see attacker's chain, if connected to more nodes, and see a fork, new nodes has to wait for 4 more slots before making a tx.
+
+  \section{slashing}
 
 
 \section {time frequency}
