@@ -1,17 +1,23 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
+
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{algorithm}
+
+\usepackage{makeidx}
+
 \usepackage{algpseudocode}
 \usepackage[toc,page]{appendix}
 \usetikzlibrary{positioning}
-\begin{document}
 
 \title {consensus seminar}
 \author {ertosns}
 \date {2023/6/7}
+
+\begin{document}
+
 \maketitle
 
 \section{ Overview}
@@ -44,7 +50,7 @@ for $x=(cm_{c_2},sn_{c_1},\eta,sl,\rho,h,ptr,\mu_{\rho},\mu_{y},root)$, and
 \newline
 $w=(path,root_{sk^{COIN}},path_{sk^{COIN}},\tau_c,\rho_c,r_{c_1},v,r_{c_2})$
 for tuple $(x,w) \in L_{lead}$ iff:
-
+\begin{enumerate}
  \item $pk^{COIN} = PRF_{root_{sk}^{COIN}}^{pk}(\tau_c)$.
  \item $\rho_{c_2}=PRF_{root_{sk_{c_1}}^{COIN}}^{evl}(\rho_{c_1})$.
  note here the nonce of the new coin is deterministically driven from the nonce of the old coin, this works as resistance mechanism to allow the same coin to be eligible for leadership more than once in the same epoch.
@@ -60,25 +66,25 @@ for tuple $(x,w) \in L_{lead}$ iff:
    $\rho$ id randomness from $\eta$.  $\pi$ is the NIZK proof of the LEAD statement.
    note! that this process involves burning old coin $c_1$, minting new  $c_2$ of the same value + reward.
 
-
-\subsubsection{ validation rules}
+\end{enumerate}
+\subsection{ validation rules}
 
 validation of proposed lead proof as follows:
-\begin{itemize}
-\item slot index is less than current slot index, epoch index is less than or equal current epoch index.
+\begin{enumerate}
+\item slot index is less than or equal current slot index, epoch index is less than or equal current epoch index.
 \item proposal extend from valid fork chain
 \item proposal extend highest ranking block (see \ref{finalization})
 \item transactions doesn't exceed max limit
 \item signature is valid based off producer public key
 \item verify block hash
 \item verify previous block hash
-\item public inputs $\mu_y$, $\mu_{rho}$ are derived from on-chain VRF output $\eta$, and current slot, and block producer signature, and public key.
+\item public inputs $\mu_y$, $\mu_{\rho}$ are derived from on-chain VRF output $\eta$, and current slot, and block producer signature, and public key.
 \item public inputs of target 2-term approximations $\sigma_1$, $\sigma_2$ are valid given total network stake and controller parameters
 \item the competing coin nullifier isn't published before to protect against double spening, before burning the coin.
 \item burnt coin's commitment rooted by commitments merkle tree root.
 \item verify block transactions
 
-\end{itemize}
+\end{enumerate}
 
 \subsection{ Epoch}
 
@@ -310,7 +316,8 @@ note! secret key is constrained 1 slot ahead (assume $N=1$ for simplicity), and 
 slots are divided into N+2 cycles, (N is security parameter $N \ge 1$), adversary assume winning lottery in the consecutive slots i to i+N, with certain probability, then winning leadership at slot i+N+1 becomes highly probable, only the first block at slot i include a single stake transaction (note staked DRK execution is delayed to slot i+N+1), rest of blocks i+1 to i+N are left with empty transactions, then predicting $\eta_i$ to $\eta_{i+N+1}$ is possible, and thus grinding attack can be executed.
 
 \begin{figure}
-  \includegraphics[scale=0.8,left]{prob.png}
+  %\includegraphics[scale=0.8,left]{prob.png}
+  \includegraphics{prob.png}
   \caption{probability of attack for different security parameter }
 \end{figure}
 
@@ -370,8 +377,9 @@ offline stakeholder can be malicious if won leadership with highest rank without
 
 
 \subsubsection {mitigating long range attack: posterior corruption}
+\begin{enumerate}
 \item extending only long chains filters out short chains
-\item forking parallel chain requires $\gt 50\%$ of staked DRK and has success rate $$ (1-(1-f)^{\sigma})^{L} $$
+\item forking parallel chain requires $> 50\%$ of staked DRK and has success rate $$ (1-(1-f)^{\sigma})^{L} $$
   \emph{L} is fork length, $\sigma$ is relative stake, \emph{f} is probability of winning lottery owning all the stake, from test-net, and simulation $f$ tend to be around 0.6, note that if fork length is 1 then validators choose between highest rank, so lowest possible fork length to rewrite transactions is 2, then at 50\%  of stake to take pessimistic point of view at $f=0.6$ probability of such attack is $((1-(1-0.6)^{0.5})^2w=0.135$ assuming malicious attacker always gets highest rank, which is random process (assuming independent Event), happen at probability $F^L $ ,F being number of fork, lowest possible is $F=2$ meanwhile probability of attack at $f=0.6$ with BFT performance 33\% of stake is assumed malicious at lowest possible fork length is $(1-(1-0.6)^{0.33})^2=0.068$ assuming malicious attacker always get highest rank, and probability of getting sequence of high ranks is $F^L$, assume the lowest possible number of forks $F=2$ (which is very pessimistic, F is proportional to number of stakeholders) then the successful attack at $33\%$ stake, $f=0.6$, $F=2$, and $L=2$ have probability of $\frac{0.068}{F^L} = 0.017$, since the fork happen with probability = 1 - $\emph{ accuracy of single lead}$ = $1-acc$, assuming it happens at random, then probability of Long range attack $P_{L=2}(\emph{LRA})$ = $\frac{(1-(1-f)^{\sigma})(1-acc)}{F}^L = 0.00764$.
 
   \label{longrangefig}
@@ -411,9 +419,11 @@ offline stakeholder can be malicious if won leadership with highest rank without
 
   \subsubsection { costly block creation }
 
-\item unlike different PoS blockchain, the lead proof creation here is costly, it requires stake, and a some luck proportional to owned stake, $P_{L=2}(LRA) \sim 0.00764$, assume diminishing probability of attack at costly block creation is $\lt 1e-6$, $P_{L=6}(LRA) \sim 4.4e-7$, with difference being just \emph{4} slots
+\item unlike different PoS blockchain, the lead proof creation here is costly, it requires stake, and a some luck proportional to owned stake, $P_{L=2}(LRA) \sim 0.00764$, assume diminishing probability of attack at costly block creation is $< 1e-6$, $P_{L=6}(LRA) \sim 4.4e-7$, with difference being just \emph{4} slots
 
 \item victims of LRA malicious attacker are new nodes, if they only connect to the malicious attacker, they see attacker's chain, if connected to more nodes, and see a fork, new nodes has to wait for 4 more slots before making a tx.
+
+\end{enumerate}
 
   \section{slashing}
 
@@ -459,7 +469,7 @@ increase cost of spamming, and fake transaction.
 eip1559 \cite{eip1559} propose base fee update rule and discovery of market clearing price, and report on the protocol \cite{eip1559_report} propose interpolation of base fee between the two different block gas costs at 12.5M, and 25M for fine grained base fee results.
 however due to fixed slot length, and inability to mitigate sudden increase/decrease in demand more fine grain base fee technique is required, that tatonment addressed above is bad approximation of PID controller.
 
-\subsubsubsection{ base fee based off PID control}
+\subsubsection{ base fee based off PID control}
  fine grain tatonment can be achieved through PID controller that can reduce spikes in base fee price due to change in demand, with feedback from previous block's cost C.
  for example base fee f at block i is $$ f[i] = f[i-1] + K_1e[i] + K_2 e[i-1] + K_3e[i-2] $$
  where $e[i]$ is error function in previous block i-1, $K_1$, $K_2$, $K_3$ are discrete controller parameters (to be tuned).
@@ -532,5 +542,5 @@ since slots has limited computation unites, computation unites is better suited 
   11-1-2023
 \end{thebibliography}
 
-
+\printindex
 \end{document}
