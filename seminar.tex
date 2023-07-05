@@ -33,7 +33,7 @@ $C^1$, $C^2$, $\dots$, $C^n$, the chain ending in a single leader per slot signa
 Each participant stores it's own local view of the Blockchain $C_{loc}$ is a sequence of blocks $B_i$ (i>0), where each $B \in C_{loc}$
 $$ B = (tx_{lead},st)$$
 $$tx_{lead} = (LEAD, header, txs, stx_{proof})$$
-LEAD is a magic word, header is a metadata, and txs is a vector of transaction hash
+LEAD is a magic word, header is a metadata, and txs is a vector of transaction hash to prevent corrupting block body, through signing block header with same keypair used in lead proof.
 $stx_{proof}=(cm_{\prime{c}},sn_c,ep,sl,\rho,h,\pi)$
 the Block's st is the block data, and h is the hash of that data.
 the commitment of the newly created coin is:
@@ -83,6 +83,7 @@ validation of proposed lead proof as follows:
 \item the competing coin nullifier isn't published before to protect against double spening, before burning the coin.
 \item burnt coin's commitment rooted by commitments merkle tree root.
 \item verify block transactions
+\item validate block signature
 
 \end{enumerate}
 
@@ -425,8 +426,6 @@ offline stakeholder can be malicious if won leadership with highest rank without
 
 \end{enumerate}
 
-  \section{slashing}
-
 
 \section {time frequency}
 blockchain lifetime is series of epoch
@@ -493,6 +492,15 @@ since slots has limited computation unites, computation unites is better suited 
 
 \subsection{ delay due to empty slots}
  empty slots with no leads would accumulate pending txs, and would increase base fee on subsequent slots, and users would increase tips for inclusion.
+
+\section { further attacks }
+
+\subsection {recreating blocks}
+\item owner of block can recreate block with same proof, but different transactions, and valid block signature. and broadcast two versions of the block
+  $$<(LEAD, header, txs, stx_{proof}), sign(header)>$$, additionally broadcast  $<(LEAD, header, \prime{txs}, stx_{proof}), sign(header)>$ with different transactions $\prime{txs}$.
+  \subsubsection {slashing}
+  malicious block owner can be slashed, by including nullifier of valid block with two different \emph{valid} signatures, and proofs to slashing merkle tree, and stakeholder is prevented from executing unstake, or lead contracts by inclusion test in slashing tree.
+
 
 
 
